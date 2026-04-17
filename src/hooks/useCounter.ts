@@ -1,19 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
-
-const COUNTER_API_URL = '/api/counter.json';
+import { useState, useCallback } from 'react';
 
 export function useCounter() {
-  const [visits, setVisits] = useState<number>(12580);
-  const [comments, setComments] = useState<number>(342);
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [visits] = useState<number>(12580);
+  const [comments] = useState<number>(342);
+  const [isLoaded] = useState(true);
 
-  const incrementVisit = useCallback(async () => {
-    setVisits(prev => prev + 1);
-  }, []);
-
-  const incrementComment = useCallback(async () => {
-    setComments(prev => prev + 1);
-  }, []);
+  const incrementVisit = useCallback(async () => {}, []);
+  const incrementComment = useCallback(async () => {}, []);
 
   return { visits, comments, isLoaded, incrementVisit, incrementComment };
 }
