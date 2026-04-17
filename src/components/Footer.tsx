@@ -1,4 +1,4 @@
-import { Brain, Github, Twitter } from 'lucide-react';
+import { Brain, Github } from 'lucide-react';
 import { categories } from '@/data/categories';
 
 export function Footer() {
@@ -74,7 +74,7 @@ export function Footer() {
             </span>
             <div className="flex gap-2">
               <a
-                href="https://github.com/worldmodels-hub"
+                href="https://github.com/3063144556-code/world-models-hub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-muted transition-colors"
@@ -82,7 +82,7 @@ export function Footer() {
                 <Github className="w-4 h-4" />
               </a>
               <a
-                href="https://twitter.com/worldmodels_hub"
+                href="https://github.com/3063144556-code/world-models-hub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-muted transition-colors"

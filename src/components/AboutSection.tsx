@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { Brain, Sparkles, BookOpen, Github, Calendar } from 'lucide-react';
 import { Brain, Sparkles, BookOpen, Github, Mail, Rss, Calendar } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -173,18 +173,10 @@ export function AboutSection() {
           {/* Contact */}
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="outline" className="gap-2" asChild>
-              <a href="https://github.com/worldmodels-hub" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/3063144556-code/world-models-hub" target="_blank" rel="noopener noreferrer">
                 <Github className="w-4 h-4" />
                 GitHub
               </a>
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <Mail className="w-4 h-4" />
-                联系我们
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <Rss className="w-4 h-4" />
-              RSS订阅
             </Button>
           </div>
         </div>
