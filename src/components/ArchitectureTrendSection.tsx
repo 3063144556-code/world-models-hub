@@ -278,7 +278,6 @@ export default function ArchitectureTrendSection() {
                 <div 
                   key={arch.name}
                   className="bg-white rounded-xl p-4 shadow-md border border-gray-100 hover:shadow-lg transition-shadow"
-                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">

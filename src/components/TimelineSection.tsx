@@ -12,7 +12,7 @@ interface TimelineItem {
   tags: string[];
 }
 
-const timelineData: TimelineItem[] = [
+const defaultTimelineData: TimelineItem[] = [
   {
     id: '1',
     date: '2026-04-15',
@@ -167,8 +167,8 @@ export default function TimelineSection() {
   }, []);
 
   const filteredItems = selectedCategory === '全部' 
-    ? timelineData 
-    : timelineData.filter(item => item.category === selectedCategory);
+    ? defaultTimelineData 
+    : defaultTimelineData.filter(item => item.category === selectedCategory);
 
   const toggleExpand = (id: string) => {
     const newExpanded = new Set(expandedItems);

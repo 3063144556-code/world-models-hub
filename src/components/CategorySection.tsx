@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Brain, Network, Eye, Gamepad2, Bot, MessageSquare, Layers, ArrowRight, BookOpen } from 'lucide-react';
 
 interface Category {
@@ -17,7 +17,7 @@ interface Category {
   }[];
 }
 
-const categories: Category[] = [
+const defaultCategories: Category[] = [
   {
     id: 'mental-model',
     name: '心智模型',
@@ -147,7 +147,7 @@ export default function CategorySection() {
     return () => observer.disconnect();
   }, []);
 
-  const totalCount = categories.reduce((sum, cat) => sum + cat.count, 0);
+  const totalCount = defaultCategories.reduce((sum, cat) => sum + cat.count, 0);
 
   return (
     <section id="categories" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -168,7 +168,7 @@ export default function CategorySection() {
 
         {/* Category Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((category, index) => {
+          {defaultCategories.map((category, index) => {
             const Icon = category.icon;
             return (
               <div
@@ -212,7 +212,7 @@ export default function CategorySection() {
             onClick={() => setSelectedCategory(null)}
           >
             <div 
-              className="bg-white rounded-2xl max-w-3xl w-full max-h-[80vh] overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300"
+              className="bg-white rounded-2xl max-w-3xl w-full max-h-[80vh] overflow-hidden shadow-2xl"
               onClick={e => e.stopPropagation()}
             >
               {/* Modal Header */}
