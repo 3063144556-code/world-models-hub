@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Users, MessageSquare, Github, Mail, Globe, Heart, ExternalLink } from 'lucide-react';
 
 interface CounterData {
@@ -7,7 +7,6 @@ interface CounterData {
 }
 
 const COUNTER_KEY = 'wmh_counter_data';
-const VISITOR_KEY = 'wmh_visitor_id';
 
 export default function AboutSection() {
   const [counters, setCounters] = useState<CounterData>({ visits: 12580, comments: 342 });
@@ -38,7 +37,10 @@ export default function AboutSection() {
         const saved = localStorage.getItem(COUNTER_KEY);
         if (saved) {
           const data = JSON.parse(saved);
-          setCounters(data);
+          setCounters({
+            visits: data.visits || 12580,
+            comments: data.comments || 342
+          });
         }
       } catch (e) {
         console.error('Failed to load counters:', e);
@@ -89,7 +91,7 @@ export default function AboutSection() {
 
         {/* Stats */}
         <div className={`grid grid-cols-2 gap-6 mb-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {stats.map((stat, index) => {
+          {stats.map((stat) => {
             const Icon = stat.icon;
             return (
               <div 

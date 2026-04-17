@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Clock, Tag, ExternalLink, Filter, ChevronDown, ChevronUp, Sparkles, Zap, TrendingUp, AlertCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Clock, Tag, ExternalLink, ChevronDown, ChevronUp, Sparkles, Zap, TrendingUp, AlertCircle } from 'lucide-react';
 
 interface TimelineItem {
   id: string;

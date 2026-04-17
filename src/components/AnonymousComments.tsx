@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { MessageSquare, Send, User, Clock, Trash2, Users } from 'lucide-react';
 
 interface Comment {
@@ -21,7 +21,6 @@ export default function AnonymousComments() {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
   const [counters, setCounters] = useState<CounterData>({ visits: 12580, comments: 342 });
-  const [isVisible, setIsVisible] = useState(false);
 
   // 获取访客ID
   const getVisitorId = () => {
@@ -126,7 +125,7 @@ export default function AnonymousComments() {
     <section id="comments" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className={`text-center mb-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-4">
             <MessageSquare className="w-4 h-4" />
             <span>留言板</span>
@@ -152,7 +151,7 @@ export default function AnonymousComments() {
         </div>
 
         {/* Comment Form */}
-        <div className={`bg-gray-50 rounded-2xl p-6 mb-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="bg-gray-50 rounded-2xl p-6 mb-8">
           <form onSubmit={handleSubmit}>
             <div className="relative">
               <textarea
@@ -179,21 +178,20 @@ export default function AnonymousComments() {
         </div>
 
         {/* Comments List */}
-        <div className={`space-y-4 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="space-y-4">
           {comments.length === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
               <p>还没有留言，来发表第一条吧！</p>
             </div>
           ) : (
-            comments.map((comment, index) => {
+            comments.map((comment) => {
               const isOwner = comment.visitorId === visitorId;
               
               return (
                 <div
                   key={comment.id}
                   className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-3 flex-1">

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
-import { TrendingUp, Calendar, BarChart3, ArrowRight, Database, Brain, Layers, Box, Cpu, GitBranch } from 'lucide-react';
+import { TrendingUp, Calendar, BarChart3, Database, Brain, Layers, Box, Cpu, GitBranch } from 'lucide-react';
 
 interface ArchitectureData {
   year: string;
