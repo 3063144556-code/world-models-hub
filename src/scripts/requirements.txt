@@ -1,0 +1,13 @@
+# World Models Hub - Python Dependencies
+
+# HTTP client
+aiohttp>=3.9.0
+
+# RSS feed parser
+feedparser>=6.0.10
+
+# OpenAI API
+openai>=1.0.0
+
+# Date parsing
+python-dateutil>=2.8.2
