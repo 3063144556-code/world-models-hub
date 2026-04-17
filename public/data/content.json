@@ -1,0 +1,198 @@
+{
+  "metadata": {
+    "generated_at": "2026-04-17T16:19:50.638371",
+    "period": "2026-03-18 ~ 2026-04-17",
+    "total_count": 12,
+    "version": "1.0",
+    "next_update": "2026年05月17日"
+  },
+  "categories": {
+    "mental-model": {
+      "name": "生物大脑中的预测",
+      "description": "研究人类和动物大脑中的心智模型与直觉物理引擎",
+      "count": 2,
+      "summary": "Updates in 生物大脑中的预测",
+      "items": []
+    },
+    "visual-representation": {
+      "name": "视觉为中心的潜在空间预测",
+      "description": "以视觉表征为核心的世界模型，包括JEPA、DINO-World等方法",
+      "count": 2,
+      "summary": "Updates in 视觉为中心的潜在空间预测",
+      "items": []
+    },
+    "language-representation": {
+      "name": "语言为中心的潜在空间预测",
+      "description": "探讨大语言模型是否可以作为世界模型",
+      "count": 2,
+      "summary": "Updates in 语言为中心的潜在空间预测",
+      "items": []
+    },
+    "rule-based-simulation": {
+      "name": "基于规则的模拟",
+      "description": "基于显式规则的世界模拟，包括游戏引擎、计算机图形学等",
+      "count": 2,
+      "summary": "Updates in 基于规则的模拟",
+      "items": []
+    },
+    "data-driven-generation": {
+      "name": "数据驱动的生成",
+      "description": "从数据中学习的视频生成模型，如Sora、Genie等",
+      "count": 2,
+      "summary": "Updates in 数据驱动的生成",
+      "items": []
+    },
+    "interactive-video": {
+      "name": "可交互生成式视频",
+      "description": "用户可以与生成世界进行实时交互的视频模型",
+      "count": 2,
+      "summary": "Updates in 可交互生成式视频",
+      "items": []
+    }
+  },
+  "timeline": [],
+  "highlights": [],
+  "majorUpdates": [],
+  "architectureStats": {
+    "year": "2026",
+    "total": 88,
+    "prev_year": "2025",
+    "prev_year_total": 182,
+    "architectures": [
+      {
+        "name": "DiT",
+        "count": 42,
+        "percentage": 47.7,
+        "yoy_change": 15.2,
+        "prev_year_count": 78
+      },
+      {
+        "name": "Transformer",
+        "count": 28,
+        "percentage": 31.8,
+        "yoy_change": -2.1,
+        "prev_year_count": 55
+      },
+      {
+        "name": "JEPA",
+        "count": 10,
+        "percentage": 11.4,
+        "yoy_change": 67.0,
+        "prev_year_count": 18
+      },
+      {
+        "name": "U-Net",
+        "count": 4,
+        "percentage": 4.5,
+        "yoy_change": -73.3,
+        "prev_year_count": 15
+      },
+      {
+        "name": "Hybrid",
+        "count": 2,
+        "percentage": 2.3,
+        "yoy_change": 100.0,
+        "prev_year_count": 1
+      },
+      {
+        "name": "Other",
+        "count": 2,
+        "percentage": 2.3,
+        "yoy_change": -50.0,
+        "prev_year_count": 4
+      }
+    ]
+  },
+  "categoryScores": [
+    {
+      "category": "data-driven-generation",
+      "categoryName": "Data-Driven Generation",
+      "scores": {
+        "researchImpact": 9.5,
+        "commercialPotential": 9.8,
+        "deploymentProgress": 8.5,
+        "technicalInnovation": 9.5,
+        "communityActivity": 9.5,
+        "overall": 9.4
+      },
+      "trend": "up",
+      "trendValue": 15,
+      "contentCount": 25
+    },
+    {
+      "category": "language-representation",
+      "categoryName": "Language-Centered Representation",
+      "scores": {
+        "researchImpact": 9.0,
+        "commercialPotential": 9.5,
+        "deploymentProgress": 9.0,
+        "technicalInnovation": 8.0,
+        "communityActivity": 9.0,
+        "overall": 8.9
+      },
+      "trend": "up",
+      "trendValue": 8,
+      "contentCount": 20
+    },
+    {
+      "category": "interactive-video",
+      "categoryName": "Interactive Video",
+      "scores": {
+        "researchImpact": 9.0,
+        "commercialPotential": 9.2,
+        "deploymentProgress": 8.0,
+        "technicalInnovation": 9.0,
+        "communityActivity": 8.8,
+        "overall": 8.8
+      },
+      "trend": "up",
+      "trendValue": 22,
+      "contentCount": 18
+    },
+    {
+      "category": "rule-based-simulation",
+      "categoryName": "Rule-Based Simulation",
+      "scores": {
+        "researchImpact": 8.5,
+        "commercialPotential": 9.5,
+        "deploymentProgress": 9.0,
+        "technicalInnovation": 8.5,
+        "communityActivity": 8.0,
+        "overall": 8.7
+      },
+      "trend": "stable",
+      "trendValue": 2,
+      "contentCount": 15
+    },
+    {
+      "category": "visual-representation",
+      "categoryName": "Visual Representation",
+      "scores": {
+        "researchImpact": 9.0,
+        "commercialPotential": 8.0,
+        "deploymentProgress": 7.0,
+        "technicalInnovation": 8.8,
+        "communityActivity": 8.5,
+        "overall": 8.3
+      },
+      "trend": "stable",
+      "trendValue": 3,
+      "contentCount": 32
+    },
+    {
+      "category": "mental-model",
+      "categoryName": "Mental Model",
+      "scores": {
+        "researchImpact": 9.0,
+        "commercialPotential": 5.0,
+        "deploymentProgress": 4.0,
+        "technicalInnovation": 7.5,
+        "communityActivity": 6.5,
+        "overall": 6.4
+      },
+      "trend": "stable",
+      "trendValue": 1,
+      "contentCount": 12
+    }
+  ]
+}
