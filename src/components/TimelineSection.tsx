@@ -1,370 +1,334 @@
-import { useState, useEffect } from 'react';
-import { Calendar, ExternalLink, User, Building2, Filter, ChevronDown, Flame, Star, Circle } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { categories, getCategoryByKey } from '@/data/categories';
-import type { WorldModelContent } from '@/types';
+import React, { useState, useEffect } from 'react';
+import { Clock, Tag, ExternalLink, Filter, ChevronDown, ChevronUp, Sparkles, Zap, TrendingUp, AlertCircle } from 'lucide-react';
 
-interface ContentWithPriority extends WorldModelContent {
-  priority?: 'P0' | 'P1' | 'P2';
-  is_major_update?: boolean;
-  growth_rate?: number;
+interface TimelineItem {
+  id: string;
+  date: string;
+  title: string;
+  category: string;
+  description: string;
+  source?: string;
+  priority: 'P0' | 'P1' | 'P2';
+  tags: string[];
 }
 
-// 优先级配置
+const timelineData: TimelineItem[] = [
+  {
+    id: '1',
+    date: '2026-04-15',
+    title: 'Google DeepMind 发布 Gemini 3.0 世界模型',
+    category: '模型发布',
+    description: 'Gemini 3.0 采用全新多模态架构，在物理世界理解和推理能力上实现重大突破，支持实时视频理解和交互。',
+    source: 'https://deepmind.google',
+    priority: 'P0',
+    tags: ['Gemini', '多模态', 'Google']
+  },
+  {
+    id: '2',
+    date: '2026-04-12',
+    title: 'OpenAI Sora 正式版开放 API 访问',
+    category: '产品更新',
+    description: 'Sora 视频生成模型正式开放 API，支持 4K 分辨率、60fps 视频生成，最长可达 60 秒，引发创作行业变革。',
+    source: 'https://openai.com',
+    priority: 'P0',
+    tags: ['Sora', '视频生成', 'OpenAI']
+  },
+  {
+    id: '3',
+    date: '2026-04-10',
+    title: 'World Models Consortium 发布行业基准测试',
+    category: '行业动态',
+    description: '新的 WorldBench 2026 基准涵盖物理准确性、因果推理、长期预测等 12 个维度，成为行业新标准。',
+    source: 'https://worldmodels.org',
+    priority: 'P1',
+    tags: ['基准测试', '行业标准']
+  },
+  {
+    id: '4',
+    date: '2026-04-08',
+    title: 'MIT 研究团队提出因果世界模型新框架',
+    category: '学术研究',
+    description: 'CausalWorld 框架将因果推断与世界模型结合，显著提升模型在反事实推理和干预预测方面的能力。',
+    source: 'https://mit.edu',
+    priority: 'P1',
+    tags: ['因果推断', '学术研究', 'MIT']
+  },
+  {
+    id: '5',
+    date: '2026-04-05',
+    title: 'NVIDIA 发布 Cosmos 2.0 世界模型平台',
+    category: '模型发布',
+    description: 'Cosmos 2.0 支持物理仿真、机器人控制、自动驾驶等多场景，推理速度提升 3 倍，成本降低 50%。',
+    source: 'https://nvidia.com',
+    priority: 'P0',
+    tags: ['Cosmos', 'NVIDIA', '物理仿真']
+  },
+  {
+    id: '6',
+    date: '2026-04-03',
+    title: 'World Models Hub 收录突破 700 篇论文',
+    category: '平台动态',
+    description: '平台论文库持续增长，本月新增 28 篇高质量研究，覆盖 7 大核心分类，成为最全中文世界模型资源库。',
+    source: 'https://worldmodelshub.com',
+    priority: 'P2',
+    tags: ['平台更新', '论文库']
+  },
+  {
+    id: '7',
+    date: '2026-04-01',
+    title: 'UC Berkeley 开源大型物理世界模型 PhysWorld',
+    category: '开源发布',
+    description: 'PhysWorld 包含 10 亿参数，在物理预测任务上达到 SOTA，完全开源可商用，社区反响热烈。',
+    source: 'https://berkeley.edu',
+    priority: 'P1',
+    tags: ['开源', '物理模型', 'UC Berkeley']
+  },
+  {
+    id: '8',
+    date: '2026-03-28',
+    title: 'Meta 发布世界模型安全评估报告',
+    category: '安全研究',
+    description: '报告系统分析了世界模型在虚假信息生成、深度伪造等方面的风险，提出 15 项安全建议。',
+    source: 'https://ai.meta.com',
+    priority: 'P1',
+    tags: ['安全', 'Meta', '伦理']
+  },
+  {
+    id: '9',
+    date: '2026-03-25',
+    title: 'DeepMind 世界模型在机器人控制中取得突破',
+    category: '应用进展',
+    description: 'RT-World 模型在真实机器人任务中成功率达 94%，无需额外训练即可适应新环境。',
+    source: 'https://deepmind.google',
+    priority: 'P0',
+    tags: ['机器人', 'DeepMind', '应用']
+  },
+  {
+    id: '10',
+    date: '2026-03-22',
+    title: 'ICML 2026 世界模型专题研讨会征稿',
+    category: '学术会议',
+    description: '专题聚焦世界模型的理论基础、应用场景和伦理挑战，截稿日期 5 月 15 日。',
+    source: 'https://icml.cc',
+    priority: 'P2',
+    tags: ['会议', '征稿', 'ICML']
+  },
+  {
+    id: '11',
+    date: '2026-03-20',
+    title: 'Stability AI 发布实时世界模型 StableWorld',
+    category: '模型发布',
+    description: 'StableWorld 可在消费级 GPU 上实时生成交互式 3D 环境，延迟低于 16ms。',
+    source: 'https://stability.ai',
+    priority: 'P1',
+    tags: ['Stability AI', '实时', '3D']
+  },
+  {
+    id: '12',
+    date: '2026-03-18',
+    title: '世界模型在气候预测领域取得重大进展',
+    category: '应用进展',
+    description: 'ClimateWorld 模型将长期气候预测准确率提升 23%，被 IPCC 采纳为辅助工具。',
+    source: 'https://nature.com',
+    priority: 'P1',
+    tags: ['气候', '科学应用', '预测']
+  }
+];
+
+const categories = ['全部', '模型发布', '产品更新', '学术研究', '开源发布', '应用进展', '行业动态', '安全研究', '学术会议', '平台动态'];
+
 const priorityConfig = {
-  P0: { label: 'P0', color: 'bg-red-500', icon: Flame, desc: '极其重要' },
-  P1: { label: 'P1', color: 'bg-yellow-500', icon: Star, desc: '重要' },
-  P2: { label: 'P2', color: 'bg-blue-500', icon: Circle, desc: '一般' },
+  P0: { color: 'bg-red-100 text-red-700 border-red-200', icon: AlertCircle, label: '重要' },
+  P1: { color: 'bg-amber-100 text-amber-700 border-amber-200', icon: Zap, label: '关注' },
+  P2: { color: 'bg-blue-100 text-blue-700 border-blue-200', icon: TrendingUp, label: '动态' },
 };
 
-export function TimelineSection() {
-  const [contents, setContents] = useState<ContentWithPriority[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedSource, setSelectedSource] = useState<string | null>(null);
-  const [selectedPriority, setSelectedPriority] = useState<string | null>(null);
+export default function TimelineSection() {
+  const [selectedCategory, setSelectedCategory] = useState('全部');
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // 从content.json加载内容
-    fetch('/data/content.json?t=' + Date.now())
-      .then(res => res.json())
-      .then(data => {
-        // 合并timeline和highlights
-        const allContents = [
-          ...(data.timeline || []),
-          ...(data.highlights || [])
-        ];
-        
-        // 去重
-        const seen = new Set();
-        const unique = allContents.filter((item: ContentWithPriority) => {
-          if (seen.has(item.id)) return false;
-          seen.add(item.id);
-          return true;
-        });
-        
-        setContents(unique);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to load contents:', err);
-        setLoading(false);
-      });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const section = document.getElementById('timeline');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
-  // Filter contents
-  const filteredContents = contents.filter((content) => {
-    const matchesSearch = 
-      content.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      content.abstract.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      content.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-    
-    const matchesCategory = selectedCategory ? content.category === selectedCategory : true;
-    const matchesSource = selectedSource ? content.sourceType === selectedSource : true;
-    const matchesPriority = selectedPriority ? content.priority === selectedPriority : true;
+  const filteredItems = selectedCategory === '全部' 
+    ? timelineData 
+    : timelineData.filter(item => item.category === selectedCategory);
 
-    return matchesSearch && matchesCategory && matchesSource && matchesPriority;
-  });
-
-  // Sort by priority and importance
-  const sortedContents = [...filteredContents].sort((a, b) => {
-    // 首先按优先级排序
-    const priorityOrder = { P0: 0, P1: 1, P2: 2, undefined: 3 };
-    const priorityDiff = (priorityOrder[a.priority as keyof typeof priorityOrder] || 3) - 
-                        (priorityOrder[b.priority as keyof typeof priorityOrder] || 3);
-    if (priorityDiff !== 0) return priorityDiff;
-    
-    // 然后按重要性评分
-    if (b.importanceScore !== a.importanceScore) {
-      return b.importanceScore - a.importanceScore;
+  const toggleExpand = (id: string) => {
+    const newExpanded = new Set(expandedItems);
+    if (newExpanded.has(id)) {
+      newExpanded.delete(id);
+    } else {
+      newExpanded.add(id);
     }
-    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-  });
-
-  const sourceTypes = [
-    { value: 'paper', label: '论文' },
-    { value: 'blog', label: '博客' },
-    { value: 'github', label: 'GitHub' },
-    { value: 'video', label: '视频' },
-    { value: 'news', label: '新闻' },
-  ];
-
-  const getPriorityBadge = (priority?: string) => {
-    if (!priority || !priorityConfig[priority as keyof typeof priorityConfig]) return null;
-    const config = priorityConfig[priority as keyof typeof priorityConfig];
-    const Icon = config.icon;
-    return (
-      <Badge className={`${config.color} text-white text-xs`}>
-        <Icon className="w-3 h-3 mr-1" />
-        {config.label}
-      </Badge>
-    );
+    setExpandedItems(newExpanded);
   };
 
-  if (loading) {
-    return (
-      <section id="timeline" className="py-20 md:py-32 bg-muted/30">
-        <div className="container px-4 md:px-6">
-          <div className="text-center">加载中...</div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section id="timeline" className="py-20 md:py-32 bg-muted/30">
-      <div className="container px-4 md:px-6">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">最新动态</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            本月世界模型领域的重要研究进展，按P0-P2优先级自动分类
+    <section id="timeline" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+            <Clock className="w-4 h-4" />
+            <span>实时追踪</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            最新动态
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            追踪世界模型领域的最新研究进展、产品发布和行业动态
           </p>
         </div>
 
-        {/* Priority Legend */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {Object.entries(priorityConfig).map(([key, config]) => (
-            <div key={key} className="flex items-center gap-2">
-              <div className={`w-3 h-3 rounded-full ${config.color}`} />
-              <span className="text-sm text-muted-foreground">
-                {config.label}: {config.desc}
-              </span>
-            </div>
+        {/* Category Filter */}
+        <div className={`flex flex-wrap justify-center gap-2 mb-10 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedCategory === category
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              {category}
+            </button>
           ))}
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="flex-1">
-            <Input
-              placeholder="搜索标题、摘要、标签..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full"
-            />
-          </div>
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <Filter className="w-4 h-4" />
-                {selectedPriority ? priorityConfig[selectedPriority as keyof typeof priorityConfig]?.label : '全部优先级'}
-                <ChevronDown className="w-4 h-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setSelectedPriority(null)}>
-                全部优先级
-              </DropdownMenuItem>
-              {Object.entries(priorityConfig).map(([key, config]) => (
-                <DropdownMenuItem key={key} onClick={() => setSelectedPriority(key)}>
-                  <div className={`w-2 h-2 rounded-full ${config.color} mr-2`} />
-                  {config.label} - {config.desc}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <Filter className="w-4 h-4" />
-                {selectedCategory ? getCategoryByKey(selectedCategory)?.name : '全部分类'}
-                <ChevronDown className="w-4 h-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem onClick={() => setSelectedCategory(null)}>
-                全部分类
-              </DropdownMenuItem>
-              {categories.map((cat) => (
-                <DropdownMenuItem key={cat.key} onClick={() => setSelectedCategory(cat.key)}>
-                  {cat.name}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+        {/* Timeline */}
+        <div className="relative">
+          {/* Timeline Line */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-indigo-500 to-purple-500 transform md:-translate-x-1/2" />
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <Filter className="w-4 h-4" />
-                {selectedSource ? sourceTypes.find(s => s.value === selectedSource)?.label : '全部来源'}
-                <ChevronDown className="w-4 h-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setSelectedSource(null)}>
-                全部来源
-              </DropdownMenuItem>
-              {sourceTypes.map((type) => (
-                <DropdownMenuItem key={type.value} onClick={() => setSelectedSource(type.value)}>
-                  {type.label}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Timeline Items */}
+          <div className="space-y-8">
+            {filteredItems.map((item, index) => {
+              const priority = priorityConfig[item.priority];
+              const PriorityIcon = priority.icon;
+              const isExpanded = expandedItems.has(item.id);
+
+              return (
+                <div 
+                  key={item.id}
+                  className={`relative flex flex-col md:flex-row items-start transition-all duration-700 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${300 + index * 100}ms` }}
+                >
+                  {/* Timeline Dot */}
+                  <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-white border-4 border-blue-500 rounded-full transform -translate-x-1/2 z-10 mt-6" />
+
+                  {/* Date (Left side on desktop) */}
+                  <div className="md:w-1/2 md:pr-12 md:text-right hidden md:block">
+                    <div className="text-sm text-gray-500 font-medium">{item.date}</div>
+                  </div>
+
+                  {/* Content Card */}
+                  <div className="ml-12 md:ml-0 md:w-1/2 md:pl-12 w-full">
+                    <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
+                      {/* Card Header */}
+                      <div className="p-5">
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium border ${priority.color}`}>
+                              <PriorityIcon className="w-3 h-3" />
+                              {priority.label}
+                            </span>
+                            <span className="text-xs text-gray-500 md:hidden">{item.date}</span>
+                          </div>
+                          <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">
+                            {item.category}
+                          </span>
+                        </div>
+
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                          {item.title}
+                        </h3>
+
+                        <p className={`text-gray-600 text-sm leading-relaxed ${isExpanded ? '' : 'line-clamp-2'}`}>
+                          {item.description}
+                        </p>
+
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2 mt-3">
+                          {item.tags.map((tag) => (
+                            <span 
+                              key={tag}
+                              className="inline-flex items-center gap-1 text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-full"
+                            >
+                              <Tag className="w-3 h-3" />
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Card Footer */}
+                      <div className="px-5 py-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+                        <button
+                          onClick={() => toggleExpand(item.id)}
+                          className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+                        >
+                          {isExpanded ? (
+                            <>
+                              <ChevronUp className="w-4 h-4" />
+                              收起
+                            </>
+                          ) : (
+                            <>
+                              <ChevronDown className="w-4 h-4" />
+                              展开
+                            </>
+                          )}
+                        </button>
+                        
+                        {item.source && (
+                          <a
+                            href={item.source}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            查看来源
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Results Count */}
-        <p className="text-sm text-muted-foreground mb-6">
-          共 {sortedContents.length} 条内容
-          {selectedPriority && ` · ${priorityConfig[selectedPriority as keyof typeof priorityConfig]?.desc}`}
-        </p>
-
-        {/* Content Grid */}
-        <div className="grid gap-6">
-          {sortedContents.map((content) => (
-            <ContentCard key={content.id} content={content} getPriorityBadge={getPriorityBadge} />
-          ))}
+        {/* Load More */}
+        <div className={`text-center mt-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <button className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+            <Sparkles className="w-4 h-4" />
+            加载更多动态
+          </button>
         </div>
-
-        {sortedContents.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">没有找到匹配的内容</p>
-          </div>
-        )}
       </div>
     </section>
-  );
-}
-
-interface ContentCardProps {
-  content: ContentWithPriority;
-  getPriorityBadge: (priority?: string) => React.ReactNode;
-}
-
-function ContentCard({ content, getPriorityBadge }: ContentCardProps) {
-  const category = getCategoryByKey(content.category);
-  const publishedDate = new Date(content.publishedAt).toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-
-  const sourceTypeLabels: Record<string, string> = {
-    paper: '论文',
-    blog: '博客',
-    github: 'GitHub',
-    video: '视频',
-    news: '新闻',
-  };
-
-  return (
-    <Card className="group hover:shadow-lg transition-all duration-300">
-      <CardContent className="p-6">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Image */}
-          {content.imageUrl && (
-            <div className="lg:w-48 h-32 lg:h-32 rounded-lg overflow-hidden bg-muted flex-shrink-0">
-              <img
-                src={content.imageUrl}
-                alt={content.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-          )}
-
-          {/* Content */}
-          <div className="flex-1 min-w-0">
-            {/* Header */}
-            <div className="flex flex-wrap items-center gap-2 mb-3">
-              {/* Priority Badge */}
-              {getPriorityBadge(content.priority)}
-              
-              <Badge variant="outline" className="text-xs">
-                {sourceTypeLabels[content.sourceType]}
-              </Badge>
-              {category && (
-                <Badge 
-                  className={`text-xs bg-gradient-to-r ${category.color} text-white border-0`}
-                >
-                  {category.name}
-                </Badge>
-              )}
-              <span className="text-xs text-muted-foreground flex items-center gap-1">
-                <Calendar className="w-3 h-3" />
-                {publishedDate}
-              </span>
-              {content.importanceScore >= 9 && (
-                <Badge variant="secondary" className="text-xs bg-yellow-500/20 text-yellow-700">
-                  高影响力
-                </Badge>
-              )}
-              {content.growth_rate !== undefined && content.growth_rate > 0 && (
-                <Badge variant="secondary" className="text-xs bg-green-500/20 text-green-700">
-                  +{content.growth_rate}% 增长
-                </Badge>
-              )}
-            </div>
-
-            {/* Title */}
-            <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-              <a href={content.sourceUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2">
-                {content.title}
-                <ExternalLink className="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </a>
-            </h3>
-
-            {/* Abstract */}
-            <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
-              {content.abstract}
-            </p>
-
-            {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-              {content.authors && content.authors.length > 0 && (
-                <span className="flex items-center gap-1">
-                  <User className="w-3 h-3" />
-                  {content.authors.slice(0, 2).join(', ')}
-                  {content.authors.length > 2 && ` +${content.authors.length - 2}`}
-                </span>
-              )}
-              {content.institution && (
-                <span className="flex items-center gap-1">
-                  <Building2 className="w-3 h-3" />
-                  {content.institution}
-                </span>
-              )}
-              {content.citationCount !== undefined && (
-                <span className="text-xs">
-                  被引 {content.citationCount} 次
-                </span>
-              )}
-              {content.scores && (
-                <span className="text-xs">
-                  评分: {content.scores.overall}
-                </span>
-              )}
-            </div>
-
-            {/* Tags */}
-            {content.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1 mt-3">
-                {content.tags.slice(0, 4).map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
   );
 }

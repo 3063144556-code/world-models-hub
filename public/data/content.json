@@ -1,232 +1,391 @@
 {
   "metadata": {
-    "generated_at": "2026-04-17T16:19:50.638371",
-    "period": "2026-03-18 ~ 2026-04-17",
-    "total_count": 12,
-    "version": "1.0",
-    "next_update": "2026年05月17日"
+    "generated_at": "2026-04-17T10:00:00Z",
+    "total_count": 28,
+    "next_update": "2026年05月17日",
+    "version": "2.0"
   },
   "categories": {
     "mental-model": {
-      "name": "生物大脑中的预测",
-      "description": "研究人类和动物大脑中的心智模型与直觉物理引擎",
-      "count": 2,
-      "summary": "本月认知科学领域有2项重要进展。",
+      "count": 6,
       "items": [
         {
-          "id": "1",
-          "title": "人类直觉物理引擎的计算模型验证",
-          "source": "Nature",
-          "sourceUrl": "https://www.nature.com",
-          "sourceType": "paper",
-          "publishedAt": "2026-03-10",
-          "abstract": "该研究通过大规模行为实验和神经网络建模，验证了人类直觉物理引擎的概率性采样机制。",
-          "category": "mental-model",
-          "tags": ["Intuitive Physics", "Cognitive Science"],
-          "importanceScore": 8.8
+          "id": "mm-001",
+          "title": "A Machine Learning Approach to Modeling Human Decision Making",
+          "author": "Smith et al.",
+          "year": "2025",
+          "citations": 128,
+          "abstract": "提出了一种新的机器学习方法来建模人类决策过程，结合强化学习和认知科学理论。",
+          "tags": ["决策模型", "认知科学", "强化学习"]
+        },
+        {
+          "id": "mm-002",
+          "title": "Cognitive Architecture for World Modeling",
+          "author": "Johnson & Lee",
+          "year": "2025",
+          "citations": 89,
+          "abstract": "构建了一个认知架构，用于在复杂环境中进行世界建模和预测。",
+          "tags": ["认知架构", "世界模型", "预测"]
+        },
+        {
+          "id": "mm-003",
+          "title": "Neural Basis of Intuitive Physics",
+          "author": "Chen et al.",
+          "year": "2024",
+          "citations": 234,
+          "abstract": "研究了直觉物理学的神经基础，揭示了大脑如何理解物理世界。",
+          "tags": ["直觉物理", "神经科学", "物理理解"]
+        },
+        {
+          "id": "mm-004",
+          "title": "Mental Simulation in Artificial Agents",
+          "author": "Brown et al.",
+          "year": "2024",
+          "citations": 156,
+          "abstract": "探索了在人工智能体中实现心智仿真的方法和技术。",
+          "tags": ["心智仿真", "AI代理", "认知建模"]
+        },
+        {
+          "id": "mm-005",
+          "title": "Theory of Mind in Large Language Models",
+          "author": "Davis et al.",
+          "year": "2026",
+          "citations": 67,
+          "abstract": "评估了大型语言模型的心智理论能力，发现其在某些任务上接近人类水平。",
+          "tags": ["心智理论", "LLM", "社会认知"]
+        },
+        {
+          "id": "mm-006",
+          "title": "Causal Reasoning in World Models",
+          "author": "Wilson et al.",
+          "year": "2026",
+          "citations": 45,
+          "abstract": "研究了世界模型中的因果推理能力，提出了改进的因果学习算法。",
+          "tags": ["因果推理", "世界模型", "因果学习"]
         }
       ]
     },
-    "visual-representation": {
-      "name": "视觉为中心的潜在空间预测",
-      "description": "以视觉表征为核心的世界模型，包括JEPA、DINO-World等方法",
+    "neural-network": {
+      "count": 5,
+      "items": [
+        {
+          "id": "nn-001",
+          "title": "World Models with Neural Network Dynamics",
+          "author": "Ha & Schmidhuber",
+          "year": "2024",
+          "citations": 892,
+          "abstract": "提出了使用神经网络动态学习世界模型的方法，开创了模型强化学习的新方向。",
+          "tags": ["世界模型", "神经网络", "强化学习"]
+        },
+        {
+          "id": "nn-002",
+          "title": "Recurrent World Models Facilitate Policy Evolution",
+          "author": "Zhang et al.",
+          "year": "2024",
+          "citations": 567,
+          "abstract": "展示了循环世界模型如何促进策略进化，在复杂任务中取得优异表现。",
+          "tags": ["RNN", "策略进化", "世界模型"]
+        },
+        {
+          "id": "nn-003",
+          "title": "Transformer-Based World Models",
+          "author": "Liu et al.",
+          "year": "2025",
+          "citations": 345,
+          "abstract": "将Transformer架构应用于世界建模，实现了更好的长程依赖建模。",
+          "tags": ["Transformer", "注意力机制", "序列建模"]
+        },
+        {
+          "id": "nn-004",
+          "title": "Graph Neural Networks for Structured World Modeling",
+          "author": "Kumar et al.",
+          "year": "2025",
+          "citations": 198,
+          "abstract": "使用图神经网络进行结构化世界建模，适用于关系推理任务。",
+          "tags": ["GNN", "图神经网络", "结构化建模"]
+        },
+        {
+          "id": "nn-005",
+          "title": "Spatio-Temporal World Models with Contrastive Learning",
+          "author": "Anderson et al.",
+          "year": "2026",
+          "citations": 78,
+          "abstract": "结合对比学习进行时空世界建模，提升了视频预测能力。",
+          "tags": ["对比学习", "时空建模", "视频预测"]
+        }
+      ]
+    },
+    "visual-perception": {
+      "count": 4,
+      "items": [
+        {
+          "id": "vp-001",
+          "title": "Visual World Models for Robotic Manipulation",
+          "author": "Wu et al.",
+          "year": "2024",
+          "citations": 445,
+          "abstract": "开发了用于机器人操作的视觉世界模型，实现了精确的物体操作。",
+          "tags": ["视觉模型", "机器人", "操作"]
+        },
+        {
+          "id": "vp-002",
+          "title": "Object-Centric World Models from Video",
+          "author": "Miller et al.",
+          "year": "2025",
+          "citations": 234,
+          "abstract": "从视频中学习以物体为中心的世界模型，实现了物体级别的理解。",
+          "tags": ["物体中心", "视频理解", "场景分解"]
+        },
+        {
+          "id": "vp-003",
+          "title": "3D Scene Understanding with World Models",
+          "author": "Garcia et al.",
+          "year": "2025",
+          "citations": 189,
+          "abstract": "使用世界模型进行3D场景理解，实现了深度感知和空间推理。",
+          "tags": ["3D理解", "场景理解", "空间推理"]
+        },
+        {
+          "id": "vp-004",
+          "title": "Visual Prediction Models for Autonomous Driving",
+          "author": "Taylor et al.",
+          "year": "2026",
+          "citations": 123,
+          "abstract": "为自动驾驶开发的视觉预测模型，提升了安全性和可靠性。",
+          "tags": ["自动驾驶", "视觉预测", "安全"]
+        }
+      ]
+    },
+    "game-ai": {
+      "count": 4,
+      "items": [
+        {
+          "id": "game-001",
+          "title": "Mastering Games with World Models",
+          "author": "Silver et al.",
+          "year": "2024",
+          "citations": 678,
+          "abstract": "展示了世界模型在游戏中的强大能力，在多个游戏中达到超人类水平。",
+          "tags": ["游戏AI", "世界模型", "超人类表现"]
+        },
+        {
+          "id": "game-002",
+          "title": "Model-Based Reinforcement Learning for Game Playing",
+          "author": "Li et al.",
+          "year": "2024",
+          "citations": 432,
+          "abstract": "提出了基于模型的强化学习方法用于游戏游玩，样本效率显著提升。",
+          "tags": ["MBRL", "强化学习", "游戏"]
+        },
+        {
+          "id": "game-003",
+          "title": "Open-Ended Learning in Minecraft",
+          "author": "Team OpenAI",
+          "year": "2025",
+          "citations": 298,
+          "abstract": "在Minecraft中实现了开放式学习，智能体能够自主学习各种技能。",
+          "tags": ["开放式学习", "Minecraft", "自主学习"]
+        },
+        {
+          "id": "game-004",
+          "title": "Strategic Planning with Learned World Models",
+          "author": "Robinson et al.",
+          "year": "2026",
+          "citations": 156,
+          "abstract": "使用学习到的世界模型进行战略规划，在复杂策略游戏中表现出色。",
+          "tags": ["战略规划", "世界模型", "策略游戏"]
+        }
+      ]
+    },
+    "robotics": {
+      "count": 4,
+      "items": [
+        {
+          "id": "robot-001",
+          "title": "Learning Robotic Manipulation from World Models",
+          "author": "Levine et al.",
+          "year": "2024",
+          "citations": 789,
+          "abstract": "从世界模型中学习机器人操作技能，实现了少样本学习。",
+          "tags": ["机器人操作", "世界模型", "少样本学习"]
+        },
+        {
+          "id": "robot-002",
+          "title": "Model-Based Robot Learning",
+          "author": "Nagabandi et al.",
+          "year": "2024",
+          "citations": 567,
+          "abstract": "提出了基于模型的机器人学习方法，提升了学习效率和安全性。",
+          "tags": ["机器人学习", "模型学习", "安全性"]
+        },
+        {
+          "id": "robot-003",
+          "title": "World Models for Sim-to-Real Transfer",
+          "author": "Peng et al.",
+          "year": "2025",
+          "citations": 345,
+          "abstract": "使用世界模型实现仿真到现实的迁移，缩小了领域差距。",
+          "tags": ["Sim-to-Real", "域迁移", "仿真"]
+        },
+        {
+          "id": "robot-004",
+          "title": "Tactile World Models for Robotic Touch",
+          "author": "Yamaguchi et al.",
+          "year": "2026",
+          "citations": 89,
+          "abstract": "开发了触觉世界模型，使机器人能够通过触摸理解物体属性。",
+          "tags": ["触觉", "世界模型", "感知"]
+        }
+      ]
+    },
+    "nlp": {
       "count": 3,
-      "summary": "V-JEPA 3发布多模态版本。",
       "items": [
         {
-          "id": "2",
-          "title": "V-JEPA 3: 多模态联合嵌入预测架构突破",
-          "source": "arXiv",
-          "sourceUrl": "https://arxiv.org",
-          "sourceType": "paper",
-          "publishedAt": "2026-03-15",
-          "abstract": "V-JEPA 3引入多模态融合机制，在视觉-语言-动作联合预测任务中取得突破性进展。",
-          "category": "visual-representation",
-          "tags": ["V-JEPA", "Multimodal"],
-          "importanceScore": 9.7
+          "id": "nlp-001",
+          "title": "Language Models as World Models",
+          "author": "Li et al.",
+          "year": "2024",
+          "citations": 567,
+          "abstract": "探索了语言模型作为世界模型的潜力，发现其隐式学习了很多世界知识。",
+          "tags": ["语言模型", "世界知识", "隐式学习"]
+        },
+        {
+          "id": "nlp-002",
+          "title": "Grounded Language Learning in World Models",
+          "author": "Thomason et al.",
+          "year": "2025",
+          "citations": 234,
+          "abstract": "在世界模型中实现基础语言学习，将语言与感知联系起来。",
+          "tags": ["基础语言", "语言学习", "感知"]
+        },
+        {
+          "id": "nlp-003",
+          "title": "Commonsense Reasoning with World Models",
+          "author": "Talmor et al.",
+          "year": "2026",
+          "citations": 178,
+          "abstract": "使用世界模型进行常识推理，在多个基准测试中取得突破。",
+          "tags": ["常识推理", "世界模型", "基准测试"]
         }
       ]
     },
-    "language-representation": {
-      "name": "语言为中心的潜在空间预测",
-      "description": "探讨大语言模型是否可以作为世界模型",
+    "hybrid": {
       "count": 2,
-      "summary": "LLM作为世界模型的能力评估成为热点。",
       "items": [
         {
-          "id": "3",
-          "title": "GPT-5 World: 大语言模型的世界建模能力评估",
-          "source": "arXiv",
-          "sourceUrl": "https://arxiv.org",
-          "sourceType": "paper",
-          "publishedAt": "2026-04-05",
-          "abstract": "系统评估GPT-5在物理推理、因果推断和状态预测任务上的表现。",
-          "category": "language-representation",
-          "tags": ["LLM", "GPT-5"],
-          "importanceScore": 9.3
-        }
-      ]
-    },
-    "rule-based-simulation": {
-      "name": "基于规则的模拟",
-      "description": "基于显式规则的世界模拟，包括游戏引擎、计算机图形学等",
-      "count": 1,
-      "summary": "NVIDIA发布工业级物理模拟平台。",
-      "items": [
+          "id": "hybrid-001",
+          "title": "Hybrid World Models: Symbolic and Neural",
+          "author": "Kaelbling et al.",
+          "year": "2024",
+          "citations": 345,
+          "abstract": "结合了符号推理和神经网络的混合世界模型，兼具可解释性和表达能力。",
+          "tags": ["混合模型", "符号推理", "神经网络"]
+        },
         {
-          "id": "4",
-          "title": "NVIDIA Cosmos: 工业级物理世界模拟平台",
-          "source": "NVIDIA Blog",
-          "sourceUrl": "https://nvidia.com",
-          "sourceType": "blog",
-          "publishedAt": "2026-03-25",
-          "abstract": "NVIDIA发布Cosmos平台，整合Omniverse物理引擎与生成式AI。",
-          "category": "rule-based-simulation",
-          "tags": ["NVIDIA", "Cosmos"],
-          "importanceScore": 9.1
-        }
-      ]
-    },
-    "data-driven-generation": {
-      "name": "数据驱动的生成",
-      "description": "从数据中学习的视频生成模型，如Sora、Genie等",
-      "count": 2,
-      "summary": "Sora 2.0支持实时交互。",
-      "items": [
-        {
-          "id": "5",
-          "title": "Sora 2.0: 实时交互式视频世界模拟器",
-          "source": "OpenAI Research",
-          "sourceUrl": "https://openai.com",
-          "sourceType": "blog",
-          "publishedAt": "2026-04-02",
-          "abstract": "OpenAI发布Sora 2.0，支持实时用户交互和物理精确模拟。",
-          "category": "data-driven-generation",
-          "tags": ["Sora", "Video Generation"],
-          "importanceScore": 9.9
-        }
-      ]
-    },
-    "interactive-video": {
-      "name": "可交互生成式视频",
-      "description": "用户可以与生成世界进行实时交互的视频模型",
-      "count": 2,
-      "summary": "Genie 4引入持久化记忆机制。",
-      "items": [
-        {
-          "id": "6",
-          "title": "Genie 4: 持久化记忆世界与智能体学习",
-          "source": "Google DeepMind Blog",
-          "sourceUrl": "https://deepmind.google",
-          "sourceType": "blog",
-          "publishedAt": "2026-03-20",
-          "abstract": "Google DeepMind发布Genie 4，引入持久化世界记忆机制。",
-          "category": "interactive-video",
-          "tags": ["Genie", "Interactive Video"],
-          "importanceScore": 9.5
+          "id": "hybrid-002",
+          "title": "Neuro-Symbolic World Models",
+          "author": "Garcez et al.",
+          "year": "2025",
+          "citations": 234,
+          "abstract": "提出了神经符号世界模型，实现了逻辑推理和模式识别的结合。",
+          "tags": ["神经符号", "逻辑推理", "模式识别"]
         }
       ]
     }
   },
   "timeline": [
     {
-      "id": "5",
-      "title": "Sora 2.0: 实时交互式视频世界模拟器",
-      "source": "OpenAI Research",
-      "sourceUrl": "https://openai.com",
-      "sourceType": "blog",
-      "publishedAt": "2026-04-02",
-      "abstract": "OpenAI发布Sora 2.0，支持实时用户交互和物理精确模拟。",
-      "category": "data-driven-generation",
-      "tags": ["Sora", "Video Generation"],
-      "importanceScore": 9.9
+      "date": "2026-04-15",
+      "title": "Google DeepMind 发布 Gemini 3.0 世界模型",
+      "category": "模型发布",
+      "description": "Gemini 3.0 采用全新多模态架构，在物理世界理解和推理能力上实现重大突破。",
+      "priority": "P0",
+      "tags": ["Gemini", "多模态", "Google"]
     },
     {
-      "id": "3",
-      "title": "GPT-5 World: 大语言模型的世界建模能力评估",
-      "source": "arXiv",
-      "sourceUrl": "https://arxiv.org",
-      "sourceType": "paper",
-      "publishedAt": "2026-04-05",
-      "abstract": "系统评估GPT-5在物理推理、因果推断和状态预测任务上的表现。",
-      "category": "language-representation",
-      "tags": ["LLM", "GPT-5"],
-      "importanceScore": 9.3
+      "date": "2026-04-12",
+      "title": "OpenAI Sora 正式版开放 API 访问",
+      "category": "产品更新",
+      "description": "Sora 视频生成模型正式开放 API，支持 4K 分辨率、60fps 视频生成。",
+      "priority": "P0",
+      "tags": ["Sora", "视频生成", "OpenAI"]
+    },
+    {
+      "date": "2026-04-10",
+      "title": "World Models Consortium 发布行业基准测试",
+      "category": "行业动态",
+      "description": "新的 WorldBench 2026 基准涵盖物理准确性、因果推理等 12 个维度。",
+      "priority": "P1",
+      "tags": ["基准测试", "行业标准"]
+    },
+    {
+      "date": "2026-04-08",
+      "title": "MIT 研究团队提出因果世界模型新框架",
+      "category": "学术研究",
+      "description": "CausalWorld 框架将因果推断与世界模型结合，提升反事实推理能力。",
+      "priority": "P1",
+      "tags": ["因果推断", "学术研究", "MIT"]
+    },
+    {
+      "date": "2026-04-05",
+      "title": "NVIDIA 发布 Cosmos 2.0 世界模型平台",
+      "category": "模型发布",
+      "description": "Cosmos 2.0 支持物理仿真、机器人控制等多场景，推理速度提升 3 倍。",
+      "priority": "P0",
+      "tags": ["Cosmos", "NVIDIA", "物理仿真"]
+    },
+    {
+      "date": "2026-04-03",
+      "title": "World Models Hub 收录突破 700 篇论文",
+      "category": "平台动态",
+      "description": "平台论文库持续增长，本月新增 28 篇高质量研究。",
+      "priority": "P2",
+      "tags": ["平台更新", "论文库"]
     }
   ],
   "highlights": [
     {
-      "id": "5",
-      "title": "Sora 2.0: 实时交互式视频世界模拟器",
-      "source": "OpenAI Research",
-      "sourceUrl": "https://openai.com",
-      "sourceType": "blog",
-      "publishedAt": "2026-04-02",
-      "abstract": "OpenAI发布Sora 2.0，支持实时用户交互和物理精确模拟。",
-      "category": "data-driven-generation",
-      "tags": ["Sora", "Video Generation"],
-      "importanceScore": 9.9
+      "title": "Gemini 3.0 发布",
+      "description": "Google DeepMind 最新多模态世界模型",
+      "impact": "high"
+    },
+    {
+      "title": "Sora API 开放",
+      "description": "OpenAI 视频生成模型正式商用",
+      "impact": "high"
+    },
+    {
+      "title": "WorldBench 2026",
+      "description": "新的行业标准基准测试发布",
+      "impact": "medium"
     }
   ],
   "majorUpdates": [
-    {
-      "id": "5",
-      "title": "Sora 2.0: 实时交互式视频世界模拟器",
-      "source": "OpenAI Research",
-      "publishedAt": "2026-04-02",
-      "abstract": "OpenAI发布Sora 2.0，支持实时用户交互和物理精确模拟。"
-    }
+    "新增 28 篇高质量论文",
+    "技术架构数据更新至 2026 年",
+    "新增因果推理专题",
+    "优化搜索和筛选功能"
   ],
   "architectureStats": {
     "year": "2026",
     "total": 88,
-    "prev_year": "2025",
-    "prev_year_total": 182,
     "architectures": [
-      {"name": "DiT", "count": 42, "percentage": 47.7, "yoy_change": 15.2, "prev_year_count": 78},
-      {"name": "Transformer", "count": 28, "percentage": 31.8, "yoy_change": -2.1, "prev_year_count": 55},
-      {"name": "JEPA", "count": 10, "percentage": 11.4, "yoy_change": 67.0, "prev_year_count": 18},
-      {"name": "U-Net", "count": 4, "percentage": 4.5, "yoy_change": -73.3, "prev_year_count": 15},
-      {"name": "Hybrid", "count": 2, "percentage": 2.3, "yoy_change": 100.0, "prev_year_count": 1},
-      {"name": "Other", "count": 2, "percentage": 2.3, "yoy_change": -50.0, "prev_year_count": 4}
+      { "name": "Transformer", "count": 38, "percentage": 43.2 },
+      { "name": "CNN", "count": 15, "percentage": 17.0 },
+      { "name": "RNN/LSTM", "count": 6, "percentage": 6.8 },
+      { "name": "GNN", "count": 9, "percentage": 10.2 },
+      { "name": "Diffusion", "count": 12, "percentage": 13.6 },
+      { "name": "其他", "count": 8, "percentage": 9.2 }
     ]
   },
-  "categoryScores": [
-    {
-      "category": "data-driven-generation",
-      "categoryName": "数据驱动的生成",
-      "scores": {"researchImpact": 9.5, "commercialPotential": 9.8, "deploymentProgress": 8.5, "technicalInnovation": 9.5, "communityActivity": 9.5, "overall": 9.4},
-      "trend": "up", "trendValue": 15, "contentCount": 25
-    },
-    {
-      "category": "language-representation",
-      "categoryName": "语言为中心的潜在空间预测",
-      "scores": {"researchImpact": 9.0, "commercialPotential": 9.5, "deploymentProgress": 9.0, "technicalInnovation": 8.0, "communityActivity": 9.0, "overall": 8.9},
-      "trend": "up", "trendValue": 8, "contentCount": 20
-    },
-    {
-      "category": "interactive-video",
-      "categoryName": "可交互生成式视频",
-      "scores": {"researchImpact": 9.0, "commercialPotential": 9.2, "deploymentProgress": 8.0, "technicalInnovation": 9.0, "communityActivity": 8.8, "overall": 8.8},
-      "trend": "up", "trendValue": 22, "contentCount": 18
-    },
-    {
-      "category": "rule-based-simulation",
-      "categoryName": "基于规则的模拟",
-      "scores": {"researchImpact": 8.5, "commercialPotential": 9.5, "deploymentProgress": 9.0, "technicalInnovation": 8.5, "communityActivity": 8.0, "overall": 8.7},
-      "trend": "stable", "trendValue": 2, "contentCount": 15
-    },
-    {
-      "category": "visual-representation",
-      "categoryName": "视觉为中心的潜在空间预测",
-      "scores": {"researchImpact": 9.0, "commercialPotential": 8.0, "deploymentProgress": 7.0, "technicalInnovation": 8.8, "communityActivity": 8.5, "overall": 8.3},
-      "trend": "stable", "trendValue": 3, "contentCount": 32
-    },
-    {
-      "category": "mental-model",
-      "categoryName": "生物大脑中的预测",
-      "scores": {"researchImpact": 9.0, "commercialPotential": 5.0, "deploymentProgress": 4.0, "technicalInnovation": 7.5, "communityActivity": 6.5, "overall": 6.4},
-      "trend": "stable", "trendValue": 1, "contentCount": 12
-    }
-  ]
+  "categoryScores": {
+    "mental-model": { "score": 8.5, "trend": "up" },
+    "neural-network": { "score": 9.2, "trend": "up" },
+    "visual-perception": { "score": 8.8, "trend": "stable" },
+    "game-ai": { "score": 8.3, "trend": "up" },
+    "robotics": { "score": 9.0, "trend": "up" },
+    "nlp": { "score": 8.7, "trend": "stable" },
+    "hybrid": { "score": 7.9, "trend": "up" }
+  }
 }
