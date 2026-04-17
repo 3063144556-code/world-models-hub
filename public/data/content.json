@@ -11,188 +11,222 @@
       "name": "生物大脑中的预测",
       "description": "研究人类和动物大脑中的心智模型与直觉物理引擎",
       "count": 2,
-      "summary": "Updates in 生物大脑中的预测",
-      "items": []
+      "summary": "本月认知科学领域有2项重要进展。",
+      "items": [
+        {
+          "id": "1",
+          "title": "人类直觉物理引擎的计算模型验证",
+          "source": "Nature",
+          "sourceUrl": "https://www.nature.com",
+          "sourceType": "paper",
+          "publishedAt": "2026-03-10",
+          "abstract": "该研究通过大规模行为实验和神经网络建模，验证了人类直觉物理引擎的概率性采样机制。",
+          "category": "mental-model",
+          "tags": ["Intuitive Physics", "Cognitive Science"],
+          "importanceScore": 8.8
+        }
+      ]
     },
     "visual-representation": {
       "name": "视觉为中心的潜在空间预测",
       "description": "以视觉表征为核心的世界模型，包括JEPA、DINO-World等方法",
-      "count": 2,
-      "summary": "Updates in 视觉为中心的潜在空间预测",
-      "items": []
+      "count": 3,
+      "summary": "V-JEPA 3发布多模态版本。",
+      "items": [
+        {
+          "id": "2",
+          "title": "V-JEPA 3: 多模态联合嵌入预测架构突破",
+          "source": "arXiv",
+          "sourceUrl": "https://arxiv.org",
+          "sourceType": "paper",
+          "publishedAt": "2026-03-15",
+          "abstract": "V-JEPA 3引入多模态融合机制，在视觉-语言-动作联合预测任务中取得突破性进展。",
+          "category": "visual-representation",
+          "tags": ["V-JEPA", "Multimodal"],
+          "importanceScore": 9.7
+        }
+      ]
     },
     "language-representation": {
       "name": "语言为中心的潜在空间预测",
       "description": "探讨大语言模型是否可以作为世界模型",
       "count": 2,
-      "summary": "Updates in 语言为中心的潜在空间预测",
-      "items": []
+      "summary": "LLM作为世界模型的能力评估成为热点。",
+      "items": [
+        {
+          "id": "3",
+          "title": "GPT-5 World: 大语言模型的世界建模能力评估",
+          "source": "arXiv",
+          "sourceUrl": "https://arxiv.org",
+          "sourceType": "paper",
+          "publishedAt": "2026-04-05",
+          "abstract": "系统评估GPT-5在物理推理、因果推断和状态预测任务上的表现。",
+          "category": "language-representation",
+          "tags": ["LLM", "GPT-5"],
+          "importanceScore": 9.3
+        }
+      ]
     },
     "rule-based-simulation": {
       "name": "基于规则的模拟",
       "description": "基于显式规则的世界模拟，包括游戏引擎、计算机图形学等",
-      "count": 2,
-      "summary": "Updates in 基于规则的模拟",
-      "items": []
+      "count": 1,
+      "summary": "NVIDIA发布工业级物理模拟平台。",
+      "items": [
+        {
+          "id": "4",
+          "title": "NVIDIA Cosmos: 工业级物理世界模拟平台",
+          "source": "NVIDIA Blog",
+          "sourceUrl": "https://nvidia.com",
+          "sourceType": "blog",
+          "publishedAt": "2026-03-25",
+          "abstract": "NVIDIA发布Cosmos平台，整合Omniverse物理引擎与生成式AI。",
+          "category": "rule-based-simulation",
+          "tags": ["NVIDIA", "Cosmos"],
+          "importanceScore": 9.1
+        }
+      ]
     },
     "data-driven-generation": {
       "name": "数据驱动的生成",
       "description": "从数据中学习的视频生成模型，如Sora、Genie等",
       "count": 2,
-      "summary": "Updates in 数据驱动的生成",
-      "items": []
+      "summary": "Sora 2.0支持实时交互。",
+      "items": [
+        {
+          "id": "5",
+          "title": "Sora 2.0: 实时交互式视频世界模拟器",
+          "source": "OpenAI Research",
+          "sourceUrl": "https://openai.com",
+          "sourceType": "blog",
+          "publishedAt": "2026-04-02",
+          "abstract": "OpenAI发布Sora 2.0，支持实时用户交互和物理精确模拟。",
+          "category": "data-driven-generation",
+          "tags": ["Sora", "Video Generation"],
+          "importanceScore": 9.9
+        }
+      ]
     },
     "interactive-video": {
       "name": "可交互生成式视频",
       "description": "用户可以与生成世界进行实时交互的视频模型",
       "count": 2,
-      "summary": "Updates in 可交互生成式视频",
-      "items": []
+      "summary": "Genie 4引入持久化记忆机制。",
+      "items": [
+        {
+          "id": "6",
+          "title": "Genie 4: 持久化记忆世界与智能体学习",
+          "source": "Google DeepMind Blog",
+          "sourceUrl": "https://deepmind.google",
+          "sourceType": "blog",
+          "publishedAt": "2026-03-20",
+          "abstract": "Google DeepMind发布Genie 4，引入持久化世界记忆机制。",
+          "category": "interactive-video",
+          "tags": ["Genie", "Interactive Video"],
+          "importanceScore": 9.5
+        }
+      ]
     }
   },
-  "timeline": [],
-  "highlights": [],
-  "majorUpdates": [],
+  "timeline": [
+    {
+      "id": "5",
+      "title": "Sora 2.0: 实时交互式视频世界模拟器",
+      "source": "OpenAI Research",
+      "sourceUrl": "https://openai.com",
+      "sourceType": "blog",
+      "publishedAt": "2026-04-02",
+      "abstract": "OpenAI发布Sora 2.0，支持实时用户交互和物理精确模拟。",
+      "category": "data-driven-generation",
+      "tags": ["Sora", "Video Generation"],
+      "importanceScore": 9.9
+    },
+    {
+      "id": "3",
+      "title": "GPT-5 World: 大语言模型的世界建模能力评估",
+      "source": "arXiv",
+      "sourceUrl": "https://arxiv.org",
+      "sourceType": "paper",
+      "publishedAt": "2026-04-05",
+      "abstract": "系统评估GPT-5在物理推理、因果推断和状态预测任务上的表现。",
+      "category": "language-representation",
+      "tags": ["LLM", "GPT-5"],
+      "importanceScore": 9.3
+    }
+  ],
+  "highlights": [
+    {
+      "id": "5",
+      "title": "Sora 2.0: 实时交互式视频世界模拟器",
+      "source": "OpenAI Research",
+      "sourceUrl": "https://openai.com",
+      "sourceType": "blog",
+      "publishedAt": "2026-04-02",
+      "abstract": "OpenAI发布Sora 2.0，支持实时用户交互和物理精确模拟。",
+      "category": "data-driven-generation",
+      "tags": ["Sora", "Video Generation"],
+      "importanceScore": 9.9
+    }
+  ],
+  "majorUpdates": [
+    {
+      "id": "5",
+      "title": "Sora 2.0: 实时交互式视频世界模拟器",
+      "source": "OpenAI Research",
+      "publishedAt": "2026-04-02",
+      "abstract": "OpenAI发布Sora 2.0，支持实时用户交互和物理精确模拟。"
+    }
+  ],
   "architectureStats": {
     "year": "2026",
     "total": 88,
     "prev_year": "2025",
     "prev_year_total": 182,
     "architectures": [
-      {
-        "name": "DiT",
-        "count": 42,
-        "percentage": 47.7,
-        "yoy_change": 15.2,
-        "prev_year_count": 78
-      },
-      {
-        "name": "Transformer",
-        "count": 28,
-        "percentage": 31.8,
-        "yoy_change": -2.1,
-        "prev_year_count": 55
-      },
-      {
-        "name": "JEPA",
-        "count": 10,
-        "percentage": 11.4,
-        "yoy_change": 67.0,
-        "prev_year_count": 18
-      },
-      {
-        "name": "U-Net",
-        "count": 4,
-        "percentage": 4.5,
-        "yoy_change": -73.3,
-        "prev_year_count": 15
-      },
-      {
-        "name": "Hybrid",
-        "count": 2,
-        "percentage": 2.3,
-        "yoy_change": 100.0,
-        "prev_year_count": 1
-      },
-      {
-        "name": "Other",
-        "count": 2,
-        "percentage": 2.3,
-        "yoy_change": -50.0,
-        "prev_year_count": 4
-      }
+      {"name": "DiT", "count": 42, "percentage": 47.7, "yoy_change": 15.2, "prev_year_count": 78},
+      {"name": "Transformer", "count": 28, "percentage": 31.8, "yoy_change": -2.1, "prev_year_count": 55},
+      {"name": "JEPA", "count": 10, "percentage": 11.4, "yoy_change": 67.0, "prev_year_count": 18},
+      {"name": "U-Net", "count": 4, "percentage": 4.5, "yoy_change": -73.3, "prev_year_count": 15},
+      {"name": "Hybrid", "count": 2, "percentage": 2.3, "yoy_change": 100.0, "prev_year_count": 1},
+      {"name": "Other", "count": 2, "percentage": 2.3, "yoy_change": -50.0, "prev_year_count": 4}
     ]
   },
   "categoryScores": [
     {
       "category": "data-driven-generation",
-      "categoryName": "Data-Driven Generation",
-      "scores": {
-        "researchImpact": 9.5,
-        "commercialPotential": 9.8,
-        "deploymentProgress": 8.5,
-        "technicalInnovation": 9.5,
-        "communityActivity": 9.5,
-        "overall": 9.4
-      },
-      "trend": "up",
-      "trendValue": 15,
-      "contentCount": 25
+      "categoryName": "数据驱动的生成",
+      "scores": {"researchImpact": 9.5, "commercialPotential": 9.8, "deploymentProgress": 8.5, "technicalInnovation": 9.5, "communityActivity": 9.5, "overall": 9.4},
+      "trend": "up", "trendValue": 15, "contentCount": 25
     },
     {
       "category": "language-representation",
-      "categoryName": "Language-Centered Representation",
-      "scores": {
-        "researchImpact": 9.0,
-        "commercialPotential": 9.5,
-        "deploymentProgress": 9.0,
-        "technicalInnovation": 8.0,
-        "communityActivity": 9.0,
-        "overall": 8.9
-      },
-      "trend": "up",
-      "trendValue": 8,
-      "contentCount": 20
+      "categoryName": "语言为中心的潜在空间预测",
+      "scores": {"researchImpact": 9.0, "commercialPotential": 9.5, "deploymentProgress": 9.0, "technicalInnovation": 8.0, "communityActivity": 9.0, "overall": 8.9},
+      "trend": "up", "trendValue": 8, "contentCount": 20
     },
     {
       "category": "interactive-video",
-      "categoryName": "Interactive Video",
-      "scores": {
-        "researchImpact": 9.0,
-        "commercialPotential": 9.2,
-        "deploymentProgress": 8.0,
-        "technicalInnovation": 9.0,
-        "communityActivity": 8.8,
-        "overall": 8.8
-      },
-      "trend": "up",
-      "trendValue": 22,
-      "contentCount": 18
+      "categoryName": "可交互生成式视频",
+      "scores": {"researchImpact": 9.0, "commercialPotential": 9.2, "deploymentProgress": 8.0, "technicalInnovation": 9.0, "communityActivity": 8.8, "overall": 8.8},
+      "trend": "up", "trendValue": 22, "contentCount": 18
     },
     {
       "category": "rule-based-simulation",
-      "categoryName": "Rule-Based Simulation",
-      "scores": {
-        "researchImpact": 8.5,
-        "commercialPotential": 9.5,
-        "deploymentProgress": 9.0,
-        "technicalInnovation": 8.5,
-        "communityActivity": 8.0,
-        "overall": 8.7
-      },
-      "trend": "stable",
-      "trendValue": 2,
-      "contentCount": 15
+      "categoryName": "基于规则的模拟",
+      "scores": {"researchImpact": 8.5, "commercialPotential": 9.5, "deploymentProgress": 9.0, "technicalInnovation": 8.5, "communityActivity": 8.0, "overall": 8.7},
+      "trend": "stable", "trendValue": 2, "contentCount": 15
     },
     {
       "category": "visual-representation",
-      "categoryName": "Visual Representation",
-      "scores": {
-        "researchImpact": 9.0,
-        "commercialPotential": 8.0,
-        "deploymentProgress": 7.0,
-        "technicalInnovation": 8.8,
-        "communityActivity": 8.5,
-        "overall": 8.3
-      },
-      "trend": "stable",
-      "trendValue": 3,
-      "contentCount": 32
+      "categoryName": "视觉为中心的潜在空间预测",
+      "scores": {"researchImpact": 9.0, "commercialPotential": 8.0, "deploymentProgress": 7.0, "technicalInnovation": 8.8, "communityActivity": 8.5, "overall": 8.3},
+      "trend": "stable", "trendValue": 3, "contentCount": 32
     },
     {
       "category": "mental-model",
-      "categoryName": "Mental Model",
-      "scores": {
-        "researchImpact": 9.0,
-        "commercialPotential": 5.0,
-        "deploymentProgress": 4.0,
-        "technicalInnovation": 7.5,
-        "communityActivity": 6.5,
-        "overall": 6.4
-      },
-      "trend": "stable",
-      "trendValue": 1,
-      "contentCount": 12
+      "categoryName": "生物大脑中的预测",
+      "scores": {"researchImpact": 9.0, "commercialPotential": 5.0, "deploymentProgress": 4.0, "technicalInnovation": 7.5, "communityActivity": 6.5, "overall": 6.4},
+      "trend": "stable", "trendValue": 1, "contentCount": 12
     }
   ]
 }
