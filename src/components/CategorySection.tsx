@@ -1,44 +1,12 @@
-import { useState, useEffect } from 'react';
 import { Brain, Sparkles, ArrowRight, Eye, MessageSquare, Box, Video, Gamepad2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { categories, representationCategories, generativeCategories } from '@/data/categories';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain, Eye, MessageSquare, Box, Video, Gamepad2,
 };
 
-interface CategoryCount {
-  [key: string]: number;
-}
-
 export function CategorySection() {
-  const [categoryCounts, setCategoryCounts] = useState<CategoryCount>({});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/data/content.json?t=' + Date.now())
-      .then(res => res.json())
-      .then(data => {
-        if (data.categories) {
-          const counts: CategoryCount = {};
-          Object.entries(data.categories).forEach(([key, value]: [string, any]) => {
-            counts[key] = value.count || 0;
-          });
-          setCategoryCounts(counts);
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to load category counts:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  const getContentCount = (categoryKey: string) => {
-    return categoryCounts[categoryKey] || 0;
-  };
-
   return (
     <section id="categories" className="py-20 md:py-32">
       <div className="container px-4 md:px-6">
@@ -65,8 +33,6 @@ export function CategorySection() {
               <CategoryCard
                 key={category.key}
                 category={category}
-                contentCount={getContentCount(category.key)}
-                loading={loading}
               />
             ))}
           </div>
@@ -88,8 +54,6 @@ export function CategorySection() {
               <CategoryCard
                 key={category.key}
                 category={category}
-                contentCount={getContentCount(category.key)}
-                loading={loading}
               />
             ))}
           </div>
@@ -101,11 +65,9 @@ export function CategorySection() {
 
 interface CategoryCardProps {
   category: typeof categories[0];
-  contentCount: number;
-  loading: boolean;
 }
 
-function CategoryCard({ category, contentCount, loading }: CategoryCardProps) {
+function CategoryCard({ category }: CategoryCardProps) {
   const IconComponent = iconMap[category.icon];
 
   return (
