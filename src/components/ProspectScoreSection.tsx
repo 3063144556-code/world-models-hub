@@ -48,7 +48,34 @@ export function ProspectScoreSection() {
       .then(res => res.json())
       .then(data => {
         if (data.categoryScores) {
-          setScores(data.categoryScores);
+          // categoryScores 可能是对象格式 {key: {score, trend}} 或数组格式
+          const cs = data.categoryScores;
+          let parsedScores: CategoryScore[];
+          
+          if (Array.isArray(cs)) {
+            parsedScores = cs;
+          } else if (typeof cs === 'object' && cs !== null) {
+            // 将对象格式转换为数组格式
+            parsedScores = Object.entries(cs).map(([key, value]: [string, any]) => ({
+              category: key,
+              categoryName: key,
+              scores: {
+                researchImpact: value.score || 0,
+                commercialPotential: value.score || 0,
+                deploymentProgress: value.score || 0,
+                technicalInnovation: value.score || 0,
+                communityActivity: value.score || 0,
+                overall: value.score || 0,
+              },
+              trend: value.trend || 'stable',
+              trendValue: 0,
+              contentCount: 0,
+            }));
+          } else {
+            parsedScores = [];
+          }
+          
+          setScores(parsedScores);
         }
         setLoading(false);
       })
