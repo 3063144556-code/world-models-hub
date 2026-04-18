@@ -20,6 +20,22 @@ interface CategoryScore {
   contentCount: number;
 }
 
+// 分类中文名称映射
+const categoryNameMap: Record<string, string> = {
+  'mental-model': '心智模型',
+  'neural-network': '神经网络',
+  'visual-perception': '视觉感知',
+  'game-ai': '游戏AI',
+  'robotics': '机器人',
+  'nlp': '自然语言处理',
+  'hybrid': '混合方法',
+  'visual-representation': '视觉表征',
+  'language-representation': '语言表征',
+  'rule-based-simulation': '规则模拟',
+  'data-driven-generation': '数据驱动生成',
+  'interactive-video': '可交互视频',
+};
+
 // 维度图标映射
 const dimensionIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   researchImpact: Lightbulb,
@@ -38,43 +54,69 @@ const dimensionNames: Record<string, string> = {
   communityActivity: '社区活跃度',
 };
 
+/**
+ * Parse category scores from various data formats
+ */
+function parseCategoryScores(data: any): CategoryScore[] {
+  if (!data) return [];
+
+  // Format 1: Array of CategoryScore (new format)
+  if (Array.isArray(data)) {
+    return data.map((item: any) => ({
+      category: item.category || '',
+      categoryName: item.categoryName || categoryNameMap[item.category] || item.category || 'Unknown',
+      scores: {
+        researchImpact: item.scores?.researchImpact ?? item.scores?.overall ?? item.score ?? 0,
+        commercialPotential: item.scores?.commercialPotential ?? item.scores?.overall ?? item.score ?? 0,
+        deploymentProgress: item.scores?.deploymentProgress ?? item.scores?.overall ?? item.score ?? 0,
+        technicalInnovation: item.scores?.technicalInnovation ?? item.scores?.overall ?? item.score ?? 0,
+        communityActivity: item.scores?.communityActivity ?? item.scores?.overall ?? item.score ?? 0,
+        overall: item.scores?.overall ?? item.score ?? 0,
+      },
+      trend: item.trend || 'stable',
+      trendValue: typeof item.trendValue === 'number' ? item.trendValue : 0,
+      contentCount: typeof item.contentCount === 'number' ? item.contentCount : 0,
+    }));
+  }
+
+  // Format 2: Object with category keys { category: { score, trend } } (old format)
+  if (typeof data === 'object') {
+    return Object.entries(data).map(([key, value]: [string, any]) => {
+      const baseScore = value.score || value.overall || 0;
+      // If individual dimensions exist, use them; otherwise distribute from overall
+      const hasDimensions = value.scores && typeof value.scores === 'object';
+
+      return {
+        category: key,
+        categoryName: categoryNameMap[key] || key,
+        scores: {
+          researchImpact: hasDimensions ? (value.scores.researchImpact ?? baseScore) : baseScore,
+          commercialPotential: hasDimensions ? (value.scores.commercialPotential ?? baseScore) : baseScore,
+          deploymentProgress: hasDimensions ? (value.scores.deploymentProgress ?? baseScore) : baseScore,
+          technicalInnovation: hasDimensions ? (value.scores.technicalInnovation ?? baseScore) : baseScore,
+          communityActivity: hasDimensions ? (value.scores.communityActivity ?? baseScore) : baseScore,
+          overall: baseScore,
+        },
+        trend: value.trend || 'stable',
+        trendValue: typeof value.trendValue === 'number' ? value.trendValue : 0,
+        contentCount: typeof value.contentCount === 'number' ? value.contentCount : 0,
+      };
+    });
+  }
+
+  return [];
+}
+
 export function ProspectScoreSection() {
   const [scores, setScores] = useState<CategoryScore[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 从content.json加载评分数据
     fetch('/data/content.json?t=' + Date.now())
       .then(res => res.json())
       .then(data => {
         if (data.categoryScores) {
-          // categoryScores 可能是对象格式 {key: {score, trend}} 或数组格式
-          const cs = data.categoryScores;
-          let parsedScores: CategoryScore[];
-          
-          if (Array.isArray(cs)) {
-            parsedScores = cs;
-          } else if (typeof cs === 'object' && cs !== null) {
-            // 将对象格式转换为数组格式
-            parsedScores = Object.entries(cs).map(([key, value]: [string, any]) => ({
-              category: key,
-              categoryName: key,
-              scores: {
-                researchImpact: value.score || 0,
-                commercialPotential: value.score || 0,
-                deploymentProgress: value.score || 0,
-                technicalInnovation: value.score || 0,
-                communityActivity: value.score || 0,
-                overall: value.score || 0,
-              },
-              trend: value.trend || 'stable',
-              trendValue: 0,
-              contentCount: 0,
-            }));
-          } else {
-            parsedScores = [];
-          }
-          
+          const parsedScores = parseCategoryScores(data.categoryScores);
           setScores(parsedScores);
         }
         setLoading(false);
@@ -116,6 +158,13 @@ export function ProspectScoreSection() {
     if (score >= 8) return 'bg-blue-500';
     if (score >= 7) return 'bg-yellow-500';
     return 'bg-gray-400';
+  };
+
+  // 格式化趋势值显示
+  const formatTrendValue = (value: number) => {
+    if (value > 0) return `+${value.toFixed(1)}%`;
+    if (value < 0) return `${value.toFixed(1)}%`;
+    return '0%';
   };
 
   if (loading) {
@@ -198,19 +247,19 @@ export function ProspectScoreSection() {
 
                       {/* Category Info */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <h3 className="text-lg font-bold">{item.categoryName}</h3>
                           <div className="flex items-center gap-1 text-sm">
                             {getTrendIcon(item.trend)}
                             <span className={getTrendColor(item.trend)}>
-                              {item.trendValue > 0 ? `+${item.trendValue}%` : `${item.trendValue}%`}
+                              {formatTrendValue(item.trendValue)}
                             </span>
                           </div>
                           <Badge variant="outline" className="text-xs">
                             {item.contentCount} 篇
                           </Badge>
                         </div>
-                        
+
                         {/* Score Bars */}
                         <div className="grid grid-cols-5 gap-2 mt-3">
                           {Object.entries(item.scores).filter(([key]) => key !== 'overall').map(([key, score]) => (
@@ -219,10 +268,10 @@ export function ProspectScoreSection() {
                               <div className="h-2 bg-muted rounded-full overflow-hidden">
                                 <div 
                                   className={`h-full rounded-full ${getProgressColor(score as number)}`}
-                                  style={{ width: `${(score as number) * 10}%` }}
+                                  style={{ width: `${Math.min((score as number) * 10, 100)}%` }}
                                 />
                               </div>
-                              <div className="text-xs font-medium mt-1">{score}</div>
+                              <div className="text-xs font-medium mt-1">{Number(score).toFixed(1)}</div>
                             </div>
                           ))}
                         </div>
@@ -269,11 +318,11 @@ export function ProspectScoreSection() {
                               <div className="w-20 h-2 bg-muted rounded-full overflow-hidden">
                                 <div 
                                   className={`h-full rounded-full ${getProgressColor(item.scores[key as keyof typeof item.scores] as number)}`}
-                                  style={{ width: `${(item.scores[key as keyof typeof item.scores] as number) * 10}%` }}
+                                  style={{ width: `${Math.min((item.scores[key as keyof typeof item.scores] as number) * 10, 100)}%` }}
                                 />
                               </div>
-                              <span className="text-sm font-medium w-8 text-right">
-                                {item.scores[key as keyof typeof item.scores]}
+                              <span className="text-sm font-medium w-10 text-right">
+                                {Number(item.scores[key as keyof typeof item.scores]).toFixed(1)}
                               </span>
                             </div>
                           </div>

@@ -32,6 +32,88 @@ const priorityConfig = {
   P2: { label: 'P2', color: 'bg-blue-500', icon: Circle, desc: '一般' },
 };
 
+/**
+ * Normalize raw timeline data to ContentItem format
+ * Handles both old format (date, description, priority) and new format (publishedAt, abstract, importanceScore)
+ */
+function normalizeContentItem(item: any, index: number): ContentItem {
+  // Handle both 'publishedAt' and 'date' fields
+  const publishedAt = item.publishedAt || item.date || '';
+
+  // Handle both 'abstract' and 'description' fields
+  const abstract = item.abstract || item.description || item.title || '';
+
+  // Calculate importance score from priority or existing score
+  let importanceScore = item.importanceScore || 0;
+  if (!importanceScore && item.priority) {
+    if (item.priority === 'P0') importanceScore = 9.0;
+    else if (item.priority === 'P1') importanceScore = 8.0;
+    else importanceScore = 7.0;
+  }
+
+  // Map category - if it's a display name, try to find matching key
+  let category = item.category || '';
+  const validCategoryKeys = categories.map(c => c.key);
+  if (category && !validCategoryKeys.includes(category)) {
+    // Category is a display name or other value, find matching key or default to empty
+    const matched = categories.find(c => c.name === category);
+    category = matched ? matched.key : '';
+  }
+
+  return {
+    id: item.id || `tl-${String(index + 1).padStart(3, '0')}`,
+    title: item.title || 'Untitled',
+    source: item.source || item.category || 'Unknown',
+    sourceUrl: item.sourceUrl || item.source_url || '#',
+    sourceType: item.sourceType || item.source_type || 'blog',
+    publishedAt,
+    abstract,
+    category,
+    tags: Array.isArray(item.tags) ? item.tags : [],
+    importanceScore,
+    imageUrl: item.imageUrl || item.image_url,
+  };
+}
+
+/**
+ * Safely format a date string to locale date string
+ * Returns the original string if parsing fails
+ */
+function safeFormatDate(dateStr: string): string {
+  if (!dateStr || dateStr === 'Invalid Date') {
+    return '日期未知';
+  }
+
+  try {
+    const date = new Date(dateStr);
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return dateStr; // Return original string if can't parse
+    }
+    return date.toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return dateStr;
+  }
+}
+
+/**
+ * Safely compare dates for sorting
+ */
+function safeDateCompare(a: string, b: string): number {
+  const dateA = new Date(a || '1970-01-01').getTime();
+  const dateB = new Date(b || '1970-01-01').getTime();
+
+  // If either date is invalid, treat as epoch
+  const validA = !isNaN(dateA) ? dateA : 0;
+  const validB = !isNaN(dateB) ? dateB : 0;
+
+  return validB - validA; // Descending
+}
+
 export function TimelineSection() {
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,14 +124,29 @@ export function TimelineSection() {
     fetch('/data/content.json?t=' + Date.now())
       .then(res => res.json())
       .then(data => {
-        const allContents = [...(data.timeline || []), ...(data.highlights || [])];
-        const seen = new Set();
-        const unique = allContents.filter((item: ContentItem) => {
+        // Normalize all content items
+        const timelineItems = (data.timeline || []).map((item: any, idx: number) => 
+          normalizeContentItem(item, idx)
+        );
+        const highlightItems = (data.highlights || []).map((item: any, idx: number) => 
+          normalizeContentItem({
+            ...item,
+            sourceUrl: item.sourceUrl || '#',
+            sourceType: 'blog',
+            abstract: item.description || item.title,
+            importanceScore: item.impact === 'high' ? 9.0 : item.impact === 'medium' ? 8.0 : 7.0,
+          }, timelineItems.length + idx)
+        );
+
+        // Merge and deduplicate
+        const seen = new Set<string>();
+        const allContents = [...timelineItems, ...highlightItems].filter((item) => {
           if (seen.has(item.id)) return false;
           seen.add(item.id);
           return true;
         });
-        setContents(unique);
+
+        setContents(allContents);
         setLoading(false);
       })
       .catch(err => {
@@ -60,23 +157,24 @@ export function TimelineSection() {
 
   const filteredContents = contents.filter((content) => {
     const matchesSearch = 
-      content.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      content.abstract.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (content.title || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (content.abstract || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
       content.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesCategory = selectedCategory ? content.category === selectedCategory : true;
     return matchesSearch && matchesCategory;
   });
 
+  // Sort by importance score first, then by date
   const sortedContents = [...filteredContents].sort((a, b) => {
     if (b.importanceScore !== a.importanceScore) {
       return b.importanceScore - a.importanceScore;
     }
-    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    return safeDateCompare(a.publishedAt, b.publishedAt);
   });
 
   const getPriority = (score: number) => {
-    if (score >= 9.5) return 'P0';
-    if (score >= 8.5) return 'P1';
+    if (score >= 9.0) return 'P0';
+    if (score >= 8.0) return 'P1';
     return 'P2';
   };
 
@@ -108,7 +206,10 @@ export function TimelineSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">最新动态</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            本月世界模型领域的重要研究进展
+            世界模型领域的重要研究进展与行业动态
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            共收录 {sortedContents.length} 条内容，每月持续更新
           </p>
         </div>
 
@@ -148,8 +249,6 @@ export function TimelineSection() {
           </DropdownMenu>
         </div>
 
-        <p className="text-sm text-muted-foreground mb-6 text-center">共 {sortedContents.length} 条内容</p>
-
         <div className="grid gap-6 max-w-4xl mx-auto">
           {sortedContents.map((content) => (
             <Card key={content.id} className="group hover:shadow-lg transition-all">
@@ -163,13 +262,17 @@ export function TimelineSection() {
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-3">
                       {getPriorityBadge(content.importanceScore)}
-                      <Badge variant="outline" className="text-xs">{content.sourceType === 'paper' ? '论文' : content.sourceType === 'blog' ? '博客' : '其他'}</Badge>
+                      <Badge variant="outline" className="text-xs">
+                        {content.sourceType === 'paper' ? '论文' : content.sourceType === 'blog' ? '博客' : '其他'}
+                      </Badge>
                       {categories.find(c => c.key === content.category) && (
-                        <Badge className="text-xs bg-primary text-white">{categories.find(c => c.key === content.category)?.name}</Badge>
+                        <Badge className="text-xs bg-primary text-white">
+                          {categories.find(c => c.key === content.category)?.name}
+                        </Badge>
                       )}
                       <span className="text-xs text-muted-foreground flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
-                        {new Date(content.publishedAt).toLocaleDateString('zh-CN')}
+                        {safeFormatDate(content.publishedAt)}
                       </span>
                     </div>
                     <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
@@ -180,7 +283,7 @@ export function TimelineSection() {
                     </h3>
                     <p className="text-muted-foreground text-sm line-clamp-2 mb-3">{content.abstract}</p>
                     <div className="flex flex-wrap gap-1">
-                      {content.tags.slice(0, 4).map((tag) => (
+                      {content.tags.slice(0, 6).map((tag) => (
                         <span key={tag} className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">#{tag}</span>
                       ))}
                     </div>
