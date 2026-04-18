@@ -1,24 +1,8 @@
-import { useEffect } from 'react';
-import { ArrowDown, Calendar, Users, MessageSquare } from 'lucide-react';
+import { ArrowDown, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useStats } from '@/hooks/useStats';
 
 export function HeroSection() {
-  const { visits, incrementVisit } = useStats();
-  
-  // 获取留言数
-  const getMessageCount = () => {
-    if (typeof window === 'undefined') return 0;
-    const savedComments = localStorage.getItem('wmh_comments');
-    return savedComments ? JSON.parse(savedComments).length : 0;
-  };
-
-  // 页面加载时增加访问计数
-  useEffect(() => {
-    incrementVisit();
-  }, [incrementVisit]);
-
   const lastUpdated = new Date('2026-04-17').toLocaleDateString('zh-CN', {
     year: 'numeric',
     month: 'long',
@@ -60,20 +44,6 @@ export function HeroSection() {
             <br className="hidden sm:block" />
             从表征到生成，从理论到应用
           </p>
-
-          {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-6 md:gap-12">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Users className="w-5 h-5" />
-              <span className="text-2xl font-bold text-foreground">{visits.toLocaleString()}</span>
-              <span>访问</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <MessageSquare className="w-5 h-5" />
-              <span className="text-2xl font-bold text-foreground">{getMessageCount()}</span>
-              <span>留言</span>
-            </div>
-          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">

@@ -20,16 +20,6 @@ interface CategoryScore {
   contentCount: number;
 }
 
-// 默认评分数据
-const defaultScores: CategoryScore[] = [
-  {"category": "data-driven-generation", "categoryName": "数据驱动的生成", "scores": {"researchImpact": 9.5, "commercialPotential": 9.8, "deploymentProgress": 8.5, "technicalInnovation": 9.5, "communityActivity": 9.5, "overall": 9.4}, "trend": "up", "trendValue": 15, "contentCount": 25},
-  {"category": "language-representation", "categoryName": "语言为中心的潜在空间预测", "scores": {"researchImpact": 9.0, "commercialPotential": 9.5, "deploymentProgress": 9.0, "technicalInnovation": 8.0, "communityActivity": 9.0, "overall": 8.9}, "trend": "up", "trendValue": 8, "contentCount": 20},
-  {"category": "interactive-video", "categoryName": "可交互生成式视频", "scores": {"researchImpact": 9.0, "commercialPotential": 9.2, "deploymentProgress": 8.0, "technicalInnovation": 9.0, "communityActivity": 8.8, "overall": 8.8}, "trend": "up", "trendValue": 22, "contentCount": 18},
-  {"category": "rule-based-simulation", "categoryName": "基于规则的模拟", "scores": {"researchImpact": 8.5, "commercialPotential": 9.5, "deploymentProgress": 9.0, "technicalInnovation": 8.5, "communityActivity": 8.0, "overall": 8.7}, "trend": "stable", "trendValue": 2, "contentCount": 15},
-  {"category": "visual-representation", "categoryName": "视觉为中心的潜在空间预测", "scores": {"researchImpact": 9.0, "commercialPotential": 8.0, "deploymentProgress": 7.0, "technicalInnovation": 8.8, "communityActivity": 8.5, "overall": 8.3}, "trend": "stable", "trendValue": 3, "contentCount": 32},
-  {"category": "mental-model", "categoryName": "生物大脑中的预测", "scores": {"researchImpact": 9.0, "commercialPotential": 5.0, "deploymentProgress": 4.0, "technicalInnovation": 7.5, "communityActivity": 6.5, "overall": 6.4}, "trend": "stable", "trendValue": 1, "contentCount": 12}
-];
-
 // 维度图标映射
 const dimensionIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   researchImpact: Lightbulb,
@@ -49,7 +39,7 @@ const dimensionNames: Record<string, string> = {
 };
 
 export function ProspectScoreSection() {
-  const [scores, setScores] = useState<CategoryScore[]>(defaultScores);
+  const [scores, setScores] = useState<CategoryScore[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -57,16 +47,13 @@ export function ProspectScoreSection() {
     fetch('/data/content.json?t=' + Date.now())
       .then(res => res.json())
       .then(data => {
-        // 严格检查 categoryScores 是否为数组
-        if (data.categoryScores && Array.isArray(data.categoryScores) && data.categoryScores.length > 0) {
+        if (data.categoryScores) {
           setScores(data.categoryScores);
         }
         setLoading(false);
       })
       .catch(err => {
         console.error('Failed to load category scores:', err);
-        // 使用默认数据
-        setScores(defaultScores);
         setLoading(false);
       });
   }, []);
